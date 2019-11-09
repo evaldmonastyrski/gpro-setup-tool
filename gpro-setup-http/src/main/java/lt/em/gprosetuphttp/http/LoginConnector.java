@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Scanner;
+import java.util.prefs.Preferences;
 
 class LoginConnector {
     @NotNull private static final Logger LOGGER = LoggerFactory.getLogger(LoggerFactory.class);
@@ -15,33 +16,39 @@ class LoginConnector {
     @NotNull private static final String USERNAME_FIELD = "textLogin";
     @NotNull private static final String PASSWORD_FIELD = "textPassword";
     @NotNull private static final String LOGIN_BUTTON = "LogonFake";
+    @NotNull private static final String USERNAME_KEY = "username";
+    @NotNull private static final String PASSWORD_KEY = "password";
 
     @NotNull private final WebDriver webDriver;
     @NotNull private final Scanner scanner;
+    @NotNull private final Preferences preferences;
 
     LoginConnector(@NotNull WebDriver webDriver) {
         this.webDriver = webDriver;
         this.scanner = new Scanner(System.in);
+        this.preferences = Preferences.userNodeForPackage(LoginConnector.class);
     }
 
     void login() {
         webDriver.get(LOGIN_URL);
 
-        fillUserName();
-        fillPassword();
+        fillTextfield(USERNAME_FIELD, USERNAME_KEY, "Please enter your username");
+        fillTextfield(PASSWORD_FIELD, PASSWORD_KEY, "Please enter your password");
         clickLogin();
     }
 
-    private void fillUserName() {
-        WebElement usernameField = webDriver.findElement(By.name(USERNAME_FIELD));
-        LOGGER.info("Please enter your username");
-        usernameField.sendKeys(scanner.nextLine());
-    }
+    private void fillTextfield(@NotNull String field, @NotNull String persistenceKey, @NotNull String message) {
+        WebElement webField = webDriver.findElement(By.name(field));
+        String storedText = preferences.get(persistenceKey, null);
+        if (storedText != null) {
+            webField.sendKeys(storedText);
+            return;
+        }
 
-    private void fillPassword() {
-        WebElement passwordField = webDriver.findElement(By.name(PASSWORD_FIELD));
-        LOGGER.info("Please enter your password");
-        passwordField.sendKeys(scanner.nextLine());
+        LOGGER.info(message);
+        String inputText = scanner.nextLine();
+        webField.sendKeys(inputText);
+        preferences.put(persistenceKey, inputText);
     }
 
     private void clickLogin() {
