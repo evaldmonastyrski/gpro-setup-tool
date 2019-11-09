@@ -15,10 +15,12 @@ class PropertyValues {
 
     private final boolean isCleanLogin;
     private final boolean isFlushMemory;
+    private final boolean isHeadless;
 
     PropertyValues() {
         boolean cleanLogin = true;
         boolean flushMemory = false;
+        boolean headless = true;
         try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(HTTP_PROPERTIES_PATH)) {
             Properties properties = new Properties();
             if (inputStream != null) {
@@ -29,6 +31,7 @@ class PropertyValues {
 
             cleanLogin = Boolean.parseBoolean(properties.getProperty("clean_login"));
             flushMemory = Boolean.parseBoolean(properties.getProperty("flush_memory"));
+            headless = Boolean.parseBoolean(properties.getProperty("headless"));
         } catch (FileNotFoundException fileNotFoundException) {
             LOGGER.error("Configuration file was not found {}", fileNotFoundException);
         } catch (IOException ioException) {
@@ -36,6 +39,7 @@ class PropertyValues {
         }
         isCleanLogin = cleanLogin;
         isFlushMemory = flushMemory;
+        isHeadless = headless;
     }
 
     boolean isCleanLogin() {
@@ -44,5 +48,9 @@ class PropertyValues {
 
     boolean isFlushMemory() {
         return isFlushMemory;
+    }
+
+    public boolean isHeadless() {
+        return isHeadless;
     }
 }

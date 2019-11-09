@@ -4,6 +4,7 @@ import lt.em.gpro.model.Driver;
 import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,8 +18,12 @@ public class GPROConnector {
 
     public GPROConnector() {
         System.setProperty(WEB_DRIVER_KEY, WEB_DRIVER_PATH);
-        @NotNull WebDriver webDriver = new ChromeDriver();
         @NotNull PropertyValues propertyValues = new PropertyValues();
+        @NotNull ChromeOptions options = new ChromeOptions();
+        if (propertyValues.isHeadless()) {
+            options.addArguments("--headless", "--disable-gpu", "--window-size=1920,1200","--ignore-certificate-errors");
+        }
+        @NotNull WebDriver webDriver = new ChromeDriver(options);
         loginConnector = new LoginConnector(webDriver, propertyValues);
         driverConnector = new DriverConnector(webDriver);
     }
