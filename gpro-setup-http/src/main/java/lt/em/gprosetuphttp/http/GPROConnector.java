@@ -11,12 +11,14 @@ public class GPROConnector {
     @NotNull private static final String WEB_DRIVER_KEY = "webdriver.chrome.driver";
     @NotNull private static final String WEB_DRIVER_PATH = "/usr/local/bin/chromedriver";
 
+    @NotNull private final PropertyValues propertyValues;
     @NotNull private final LoginConnector loginConnector;
 
     public GPROConnector() {
         System.setProperty(WEB_DRIVER_KEY, WEB_DRIVER_PATH);
         @NotNull WebDriver webDriver = new ChromeDriver();
-        loginConnector = new LoginConnector(webDriver);
+        propertyValues = new PropertyValues();
+        loginConnector = new LoginConnector(webDriver, propertyValues);
     }
 
     public void connect() {
