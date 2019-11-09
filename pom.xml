@@ -10,6 +10,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>gpro-setup-http</module>
+        <module>gpro-core</module>
     </modules>
 
     <properties>
@@ -27,6 +28,11 @@
             <dependency>
                 <groupId>lt.em</groupId>
                 <artifactId>gpro-setup-http</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>lt.em</groupId>
+                <artifactId>gpro-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
