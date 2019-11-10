@@ -1,6 +1,8 @@
 package lt.em.gprocore.core;
 
+import lt.em.gpro.model.Driver;
 import lt.em.gprosetuphttp.http.GPROConnector;
+import lt.em.gprotool.persistence.GPROPersister;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +16,7 @@ public class GPROMain {
 
     private void start() {
         LOGGER.info("Application has started");
-        new GPROConnector().connect();
+        Driver driver = new GPROConnector().getDriverData();
+        new GPROPersister().persistDriver(driver);
     }
 }

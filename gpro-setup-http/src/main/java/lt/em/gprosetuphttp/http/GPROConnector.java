@@ -13,6 +13,7 @@ public class GPROConnector {
     @NotNull private static final String WEB_DRIVER_KEY = "webdriver.chrome.driver";
     @NotNull private static final String WEB_DRIVER_PATH = "/usr/local/bin/chromedriver";
 
+    @NotNull private final WebDriver webDriver;
     @NotNull private final LoginConnector loginConnector;
     @NotNull private final DriverConnector driverConnector;
 
@@ -23,15 +24,18 @@ public class GPROConnector {
         if (propertyValues.isHeadless()) {
             options.addArguments("--headless", "--disable-gpu", "--window-size=1920,1200","--ignore-certificate-errors");
         }
-        @NotNull WebDriver webDriver = new ChromeDriver(options);
+        webDriver = new ChromeDriver(options);
         loginConnector = new LoginConnector(webDriver, propertyValues);
         driverConnector = new DriverConnector(webDriver);
     }
 
-    public void connect() {
+    @NotNull
+    public Driver getDriverData() {
         LOGGER.info("Connecting to GPRO website...");
         loginConnector.login();
         Driver driver = driverConnector.parseDriverSkills();
         LOGGER.info("Driver skills: {}", driver);
+        webDriver.quit();
+        return driver;
     }
 }

@@ -12,6 +12,7 @@
         <module>gpro-setup-http</module>
         <module>gpro-core</module>
         <module>datamodel</module>
+        <module>gpro-persistence</module>
     </modules>
 
     <properties>
@@ -20,6 +21,8 @@
         <jetbrains.annotations.version>16.0.3</jetbrains.annotations.version>
         <selenium.version>3.141.59</selenium.version>
         <immutables.version>2.8.1</immutables.version>
+        <mongodb.version>3.11.2</mongodb.version>
+        <jackson.version>2.10.0</jackson.version>
 
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
@@ -36,6 +39,11 @@
             <dependency>
                 <groupId>lt.em</groupId>
                 <artifactId>gpro-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>lt.em</groupId>
+                <artifactId>gpro-persistence</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -68,6 +76,21 @@
                 <artifactId>value</artifactId>
                 <version>${immutables.version}</version>
                 <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.mongodb</groupId>
+                <artifactId>mongo-java-driver</artifactId>
+                <version>${mongodb.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mongojack</groupId>
+                <artifactId>mongojack</artifactId>
+                <version>${jackson.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -9,12 +9,12 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>gpro-core</artifactId>
+    <artifactId>gpro-persistence</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>lt.em</groupId>
-            <artifactId>gpro-setup-http</artifactId>
+            <artifactId>datamodel</artifactId>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
@@ -29,8 +29,8 @@
             <artifactId>annotations</artifactId>
         </dependency>
         <dependency>
-            <groupId>lt.em</groupId>
-            <artifactId>gpro-persistence</artifactId>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
         </dependency>
     </dependencies>
 </project>
