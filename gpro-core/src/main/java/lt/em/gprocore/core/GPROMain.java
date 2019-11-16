@@ -1,6 +1,7 @@
 package lt.em.gprocore.core;
 
 import lt.em.gpro.model.Car;
+import lt.em.gpro.model.CombinedData;
 import lt.em.gpro.model.Driver;
 import lt.em.gpro.model.Practise;
 import lt.em.gprosetuphttp.http.GPROConnector;
@@ -20,14 +21,14 @@ public class GPROMain {
         LOGGER.info("Application has started");
         GPROConnector gproConnector = new GPROConnector();
         gproConnector.login();
-        Driver driver = gproConnector.getDriverData();
-        Car car = gproConnector.getCarData();
-        Practise practise = gproConnector.getPractiseData();
+        CombinedData combinedData = Combiner.createCombinedData(
+                gproConnector.getDriverData(),
+                gproConnector.getCarData(),
+                gproConnector.getPractiseData());
         gproConnector.closeBrowser();
+
         GPROPersister gproPersister = new GPROPersister();
-        gproPersister.persistDriver(driver);
-        gproPersister.persistCar(car);
-        gproPersister.persistPractiseLap(practise);
+        gproPersister.persistCombinedData(combinedData);
         gproPersister.closeDatabaseConnection();
     }
 }

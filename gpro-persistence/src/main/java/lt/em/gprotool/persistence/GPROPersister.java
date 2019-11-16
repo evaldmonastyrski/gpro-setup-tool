@@ -4,6 +4,7 @@ import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
 import lt.em.gpro.model.Car;
+import lt.em.gpro.model.CombinedData;
 import lt.em.gpro.model.Driver;
 import lt.em.gpro.model.Practise;
 import org.jetbrains.annotations.NotNull;
@@ -19,11 +20,18 @@ public class GPROPersister {
 
     @NotNull private final MongoClient mongoClient;
     @NotNull private final DB database;
+    @NotNull private final JacksonDBCollection<CombinedData, String> jacksonDBCollection;
 
     public GPROPersister() {
         mongoClient = new MongoClient(LOCALHOST, DEFAULT_PORT);
         database = mongoClient.getDB(GPRO_DB);
         LOGGER.info("Connected to MongoDB");
+        DBCollection dbCollection = database.getCollection("Combined Data Records");
+        jacksonDBCollection = JacksonDBCollection.wrap(dbCollection, CombinedData.class, String.class);
+    }
+
+    public void persistCombinedData(@NotNull CombinedData combinedData) {
+        jacksonDBCollection.insert(combinedData);
     }
 
     public void persistDriver(@NotNull Driver driver) {
