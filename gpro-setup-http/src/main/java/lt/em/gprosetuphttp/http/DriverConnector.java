@@ -10,18 +10,18 @@ import org.openqa.selenium.WebElement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DriverConnector {
-    @NotNull private static final int FROM_INDEX = 11;
-    @NotNull private static final int TO_INDEX = 37;
+class DriverConnector {
+    private static final int FROM_INDEX = 11;
+    private static final int TO_INDEX = 37;
 
     @NotNull private final WebDriver webDriver;
 
-    public DriverConnector(@NotNull WebDriver webDriver) {
+    DriverConnector(@NotNull WebDriver webDriver) {
         this.webDriver = webDriver;
     }
 
     @NotNull
-    public Driver parseDriverSkills() {
+    Driver parseDriverSkills() {
         webDriver.get("https://gpro.net/gb/TrainingSession.asp");
         List<WebElement> rows = webDriver.findElements(By.tagName("tr")).subList(FROM_INDEX, TO_INDEX);
         List<Integer> myDriverSkills = new ArrayList<>();

@@ -50,7 +50,7 @@ class PropertyValues {
         return isFlushMemory;
     }
 
-    public boolean isHeadless() {
+    boolean isHeadless() {
         return isHeadless;
     }
 }
