@@ -7,5 +7,5 @@ import org.immutables.value.Value;
 @Value.Immutable
 @JsonSerialize(as = ImmutableRearWing.class)
 @JsonDeserialize(as = ImmutableRearWing.class)
-interface RearWing extends CarPart {
+public interface RearWing extends CarPart {
 }

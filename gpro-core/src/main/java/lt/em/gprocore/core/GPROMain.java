@@ -2,6 +2,7 @@ package lt.em.gprocore.core;
 
 import lt.em.gpro.model.Car;
 import lt.em.gpro.model.Driver;
+import lt.em.gpro.model.Practise;
 import lt.em.gprosetuphttp.http.GPROConnector;
 import lt.em.gprotool.persistence.GPROPersister;
 import org.jetbrains.annotations.NotNull;
@@ -21,10 +22,12 @@ public class GPROMain {
         gproConnector.login();
         Driver driver = gproConnector.getDriverData();
         Car car = gproConnector.getCarData();
+        Practise practise = gproConnector.getPractiseData();
         gproConnector.closeBrowser();
         GPROPersister gproPersister = new GPROPersister();
         gproPersister.persistDriver(driver);
         gproPersister.persistCar(car);
+        gproPersister.persistPractiseLap(practise);
         gproPersister.closeDatabaseConnection();
     }
 }

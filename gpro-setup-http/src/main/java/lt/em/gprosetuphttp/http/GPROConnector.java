@@ -2,6 +2,7 @@ package lt.em.gprosetuphttp.http;
 
 import lt.em.gpro.model.Car;
 import lt.em.gpro.model.Driver;
+import lt.em.gpro.model.Practise;
 import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -18,6 +19,7 @@ public class GPROConnector {
     @NotNull private final LoginConnector loginConnector;
     @NotNull private final DriverConnector driverConnector;
     @NotNull private final CarConnector carConnector;
+    @NotNull private final PractiseConnector practiseConnector;
 
     public GPROConnector() {
         System.setProperty(WEB_DRIVER_KEY, WEB_DRIVER_PATH);
@@ -30,6 +32,7 @@ public class GPROConnector {
         loginConnector = new LoginConnector(webDriver, propertyValues);
         driverConnector = new DriverConnector(webDriver);
         carConnector = new CarConnector(webDriver);
+        practiseConnector = new PractiseConnector(webDriver);
     }
 
     public void login() {
@@ -49,6 +52,13 @@ public class GPROConnector {
         Car car = carConnector.parseCar();
         LOGGER.info("Car: {}", car);
         return car;
+    }
+
+    @NotNull
+    public Practise getPractiseData() {
+        Practise practise = practiseConnector.parsePractise();
+        LOGGER.info("Practise: {}", practise);
+        return practise;
     }
 
     public void closeBrowser() {

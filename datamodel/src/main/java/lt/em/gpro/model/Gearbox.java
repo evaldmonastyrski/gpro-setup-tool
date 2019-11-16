@@ -7,5 +7,5 @@ import org.immutables.value.Value;
 @Value.Immutable
 @JsonSerialize(as = ImmutableGearbox.class)
 @JsonDeserialize(as = ImmutableGearbox.class)
-interface Gearbox extends CarPart {
+public interface Gearbox extends CarPart {
 }

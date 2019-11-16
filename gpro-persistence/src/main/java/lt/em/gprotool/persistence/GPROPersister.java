@@ -5,6 +5,7 @@ import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
 import lt.em.gpro.model.Car;
 import lt.em.gpro.model.Driver;
+import lt.em.gpro.model.Practise;
 import org.jetbrains.annotations.NotNull;
 import org.mongojack.JacksonDBCollection;
 import org.slf4j.Logger;
@@ -35,6 +36,12 @@ public class GPROPersister {
         DBCollection dbCollection = database.getCollection("Car Records");
         JacksonDBCollection<Car, String> driverRecords = JacksonDBCollection.wrap(dbCollection, Car.class, String.class);
         driverRecords.insert(car);
+    }
+
+    public void persistPractiseLap(@NotNull Practise practise) {
+        DBCollection dbCollection = database.getCollection("Practise Lap Records");
+        JacksonDBCollection<Practise, String> driverRecords = JacksonDBCollection.wrap(dbCollection, Practise.class, String.class);
+        driverRecords.insert(practise);
     }
 
     public void closeDatabaseConnection() {
