@@ -23,6 +23,8 @@ class DriverConnector {
     @NotNull
     Driver parseDriverSkills() {
         webDriver.get("https://gpro.net/gb/TrainingSession.asp");
+        List<WebElement> headers = webDriver.findElements(By.tagName("h1"));
+        String driverName = headers.get(1).getText().split(": ")[1];
         List<WebElement> rows = webDriver.findElements(By.tagName("tr")).subList(FROM_INDEX, TO_INDEX);
         List<Integer> myDriverSkills = new ArrayList<>();
         for (WebElement row : rows) {
@@ -36,7 +38,9 @@ class DriverConnector {
             }
         }
 
-        return ImmutableDriver.builder().energy(myDriverSkills.get(0))
+        return ImmutableDriver.builder()
+                .name(driverName)
+                .energy(myDriverSkills.get(0))
                 .overall(myDriverSkills.get(1))
                 .concentration(myDriverSkills.get(2))
                 .talent(myDriverSkills.get(3))

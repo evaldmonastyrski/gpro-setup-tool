@@ -4,11 +4,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.immutables.value.Value;
+import org.jetbrains.annotations.NotNull;
 
 @Value.Immutable
 @JsonSerialize(as = ImmutableDriver.class)
 @JsonDeserialize(as = ImmutableDriver.class)
 public interface Driver {
+    @NotNull
+    @JsonProperty("name")
+    String getName();
 
     @JsonProperty("energy")
     int getEnergy();
