@@ -3,6 +3,7 @@ package lt.em.gprotool.persistence;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
+import lt.em.gpro.model.Car;
 import lt.em.gpro.model.Driver;
 import org.jetbrains.annotations.NotNull;
 import org.mongojack.JacksonDBCollection;
@@ -28,6 +29,15 @@ public class GPROPersister {
         DBCollection dbCollection = database.getCollection("Driver Records");
         JacksonDBCollection<Driver, String> driverRecords = JacksonDBCollection.wrap(dbCollection, Driver.class, String.class);
         driverRecords.insert(driver);
+    }
+
+    public void persistCar(@NotNull Car car) {
+        DBCollection dbCollection = database.getCollection("Car Records");
+        JacksonDBCollection<Car, String> driverRecords = JacksonDBCollection.wrap(dbCollection, Car.class, String.class);
+        driverRecords.insert(car);
+    }
+
+    public void closeDatabaseConnection() {
         mongoClient.close();
     }
 }

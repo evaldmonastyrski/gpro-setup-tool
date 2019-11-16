@@ -1,5 +1,6 @@
 package lt.em.gprocore.core;
 
+import lt.em.gpro.model.Car;
 import lt.em.gpro.model.Driver;
 import lt.em.gprosetuphttp.http.GPROConnector;
 import lt.em.gprotool.persistence.GPROPersister;
@@ -16,7 +17,14 @@ public class GPROMain {
 
     private void start() {
         LOGGER.info("Application has started");
-        Driver driver = new GPROConnector().getDriverData();
-        new GPROPersister().persistDriver(driver);
+        GPROConnector gproConnector = new GPROConnector();
+        gproConnector.login();
+        Driver driver = gproConnector.getDriverData();
+        Car car = gproConnector.getCarData();
+        gproConnector.closeBrowser();
+        GPROPersister gproPersister = new GPROPersister();
+        gproPersister.persistDriver(driver);
+        gproPersister.persistCar(car);
+        gproPersister.closeDatabaseConnection();
     }
 }

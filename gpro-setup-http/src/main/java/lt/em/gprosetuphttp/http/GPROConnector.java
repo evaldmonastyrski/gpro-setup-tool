@@ -1,5 +1,6 @@
 package lt.em.gprosetuphttp.http;
 
+import lt.em.gpro.model.Car;
 import lt.em.gpro.model.Driver;
 import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.WebDriver;
@@ -16,6 +17,7 @@ public class GPROConnector {
     @NotNull private final WebDriver webDriver;
     @NotNull private final LoginConnector loginConnector;
     @NotNull private final DriverConnector driverConnector;
+    @NotNull private final CarConnector carConnector;
 
     public GPROConnector() {
         System.setProperty(WEB_DRIVER_KEY, WEB_DRIVER_PATH);
@@ -27,15 +29,29 @@ public class GPROConnector {
         webDriver = new ChromeDriver(options);
         loginConnector = new LoginConnector(webDriver, propertyValues);
         driverConnector = new DriverConnector(webDriver);
+        carConnector = new CarConnector(webDriver);
+    }
+
+    public void login() {
+        LOGGER.info("Connecting to GPRO website...");
+        loginConnector.login();
     }
 
     @NotNull
     public Driver getDriverData() {
-        LOGGER.info("Connecting to GPRO website...");
-        loginConnector.login();
         Driver driver = driverConnector.parseDriverSkills();
         LOGGER.info("Driver skills: {}", driver);
-        webDriver.quit();
         return driver;
+    }
+
+    @NotNull
+    public Car getCarData() {
+        Car car = carConnector.parseCar();
+        LOGGER.info("Car: {}", car);
+        return car;
+    }
+
+    public void closeBrowser() {
+        webDriver.quit();
     }
 }
