@@ -21,6 +21,7 @@ public class GPROMain {
         CombinedData combinedData = Combiner.createCombinedData(
                 gproConnector.getDriverData(),
                 gproConnector.getCarData(),
+                gproConnector.getPractiseConditionsData(),
                 gproConnector.getPractiseData(),
                 gproConnector.getStaffAndFacilitiesData());
         gproConnector.closeBrowser();

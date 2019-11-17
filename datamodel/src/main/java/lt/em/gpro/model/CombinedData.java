@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 public interface CombinedData {
     @NotNull Driver getDriver();
     @NotNull Car getCar();
+    @NotNull PractiseConditions getPractiseConditions();
     @NotNull Practise getPractise();
     @NotNull StaffAndFacilities getStaffAndFacilities();
 }

@@ -9,7 +9,6 @@ import org.jetbrains.annotations.NotNull;
 @JsonSerialize(as = ImmutablePractise.class)
 @JsonDeserialize(as = ImmutablePractise.class)
 public interface Practise {
-    @NotNull String getTrackName();
     int getAttempt();
     double getNetTime();
     int getFrontWingSetup();
@@ -19,9 +18,4 @@ public interface Practise {
     int getGearSetup();
     int getSuspensionSetup();
     @NotNull String getTyreType();
-    int getTrackPower();
-    int getTrackHandling();
-    int getTrackAcceleration();
-    int getTemperatureQ1();
-    int getHumidityQ1();
 }

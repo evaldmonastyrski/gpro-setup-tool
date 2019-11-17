@@ -3,6 +3,7 @@ package lt.em.gprosetuphttp.http;
 import lt.em.gpro.model.Car;
 import lt.em.gpro.model.Driver;
 import lt.em.gpro.model.Practise;
+import lt.em.gpro.model.PractiseConditions;
 import lt.em.gpro.model.StaffAndFacilities;
 import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.WebDriver;
@@ -20,6 +21,7 @@ public class GPROConnector {
     @NotNull private final LoginConnector loginConnector;
     @NotNull private final DriverConnector driverConnector;
     @NotNull private final CarConnector carConnector;
+    @NotNull private final PractiseConditionsConnector practiseConditionsConnector;
     @NotNull private final PractiseConnector practiseConnector;
     @NotNull private final FacilitiesConnector facilitiesConnector;
 
@@ -34,6 +36,7 @@ public class GPROConnector {
         loginConnector = new LoginConnector(webDriver, propertyValues);
         driverConnector = new DriverConnector(webDriver);
         carConnector = new CarConnector(webDriver);
+        practiseConditionsConnector = new PractiseConditionsConnector(webDriver);
         practiseConnector = new PractiseConnector(webDriver);
         facilitiesConnector = new FacilitiesConnector(webDriver);
     }
@@ -55,6 +58,13 @@ public class GPROConnector {
         Car car = carConnector.parseCar();
         LOGGER.info("Car: {}", car);
         return car;
+    }
+
+    @NotNull
+    public PractiseConditions getPractiseConditionsData() {
+        PractiseConditions practiseConditions  = practiseConditionsConnector.parsePractiseConditions();
+        LOGGER.info("Practise Conditions: {}", practiseConditions);
+        return practiseConditions;
     }
 
     @NotNull
