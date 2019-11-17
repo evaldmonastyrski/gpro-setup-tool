@@ -4,6 +4,7 @@ import lt.em.gpro.model.Car;
 import lt.em.gpro.model.Driver;
 import lt.em.gpro.model.Practise;
 import lt.em.gpro.model.PractiseConditions;
+import lt.em.gpro.model.Setup;
 import lt.em.gpro.model.StaffAndFacilities;
 import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.WebDriver;
@@ -15,7 +16,8 @@ import org.slf4j.LoggerFactory;
 public class GPROConnector {
     @NotNull private static final Logger LOGGER = LoggerFactory.getLogger(GPROConnector.class);
     @NotNull private static final String WEB_DRIVER_KEY = "webdriver.chrome.driver";
-    @NotNull private static final String WEB_DRIVER_PATH = "/usr/local/bin/chromedriver";
+    @NotNull private static final String APPLE_WEB_DRIVER_PATH = "/usr/local/bin/chromedriver";
+    @NotNull private static final String WINODWS_WEB_DRIVER_PATH = "C:\\workspace\\\\chromedriver.exe";
 
     @NotNull private final WebDriver webDriver;
     @NotNull private final LoginConnector loginConnector;
@@ -24,9 +26,11 @@ public class GPROConnector {
     @NotNull private final PractiseConditionsConnector practiseConditionsConnector;
     @NotNull private final PractiseConnector practiseConnector;
     @NotNull private final FacilitiesConnector facilitiesConnector;
+    @NotNull private final PractiseActivator practiseActivator;
 
     public GPROConnector() {
-        System.setProperty(WEB_DRIVER_KEY, WEB_DRIVER_PATH);
+        String webDriverPath = isApple() ? APPLE_WEB_DRIVER_PATH : WINODWS_WEB_DRIVER_PATH;
+        System.setProperty(WEB_DRIVER_KEY, webDriverPath);
         @NotNull PropertyValues propertyValues = new PropertyValues();
         @NotNull ChromeOptions options = new ChromeOptions();
         if (propertyValues.isHeadless()) {
@@ -39,6 +43,7 @@ public class GPROConnector {
         practiseConditionsConnector = new PractiseConditionsConnector(webDriver);
         practiseConnector = new PractiseConnector(webDriver);
         facilitiesConnector = new FacilitiesConnector(webDriver);
+        practiseActivator = new PractiseActivator(webDriver);
     }
 
     public void login() {
@@ -81,7 +86,24 @@ public class GPROConnector {
         return staffAndFacilities;
     }
 
+    public void drivePractiseLap(@NotNull Setup setup, @NotNull String tyreCompound) {
+        practiseActivator.drivePractiseLap(setup, tyreCompound);
+    }
+
     public void closeBrowser() {
         webDriver.quit();
+    }
+
+    static boolean isApple() {
+        return getOsName().startsWith("Mac OS X");
+    }
+
+    static boolean isWindows() {
+        return getOsName().startsWith("Windows");
+    }
+
+    @NotNull
+    private static String getOsName() {
+        return System.getProperty("os.name");
     }
 }

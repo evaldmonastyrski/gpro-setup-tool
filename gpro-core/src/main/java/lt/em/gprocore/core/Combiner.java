@@ -16,14 +16,14 @@ enum Combiner {
     static CombinedData createCombinedData(@NotNull Driver driver,
                                            @NotNull Car car,
                                            @NotNull PractiseConditions practiseConditions,
-                                           @NotNull Practise practise,
-                                           @NotNull StaffAndFacilities staffAndFacilities) {
+                                           @NotNull StaffAndFacilities staffAndFacilities,
+                                           @NotNull Practise practise) {
         return ImmutableCombinedData.builder()
                 .driver(driver)
                 .car(car)
                 .practiseConditions(practiseConditions)
-                .practise(practise)
                 .staffAndFacilities(staffAndFacilities)
+                .practise(practise)
                 .build();
     }
 }
