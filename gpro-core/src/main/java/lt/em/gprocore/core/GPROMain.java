@@ -1,9 +1,6 @@
 package lt.em.gprocore.core;
 
-import lt.em.gpro.model.Car;
 import lt.em.gpro.model.CombinedData;
-import lt.em.gpro.model.Driver;
-import lt.em.gpro.model.Practise;
 import lt.em.gprosetuphttp.http.GPROConnector;
 import lt.em.gprotool.persistence.GPROPersister;
 import org.jetbrains.annotations.NotNull;
@@ -24,7 +21,8 @@ public class GPROMain {
         CombinedData combinedData = Combiner.createCombinedData(
                 gproConnector.getDriverData(),
                 gproConnector.getCarData(),
-                gproConnector.getPractiseData());
+                gproConnector.getPractiseData(),
+                gproConnector.getStaffAndFacilitiesData());
         gproConnector.closeBrowser();
 
         GPROPersister gproPersister = new GPROPersister();

@@ -12,4 +12,5 @@ public interface CombinedData {
     @NotNull Driver getDriver();
     @NotNull Car getCar();
     @NotNull Practise getPractise();
+    @NotNull StaffAndFacilities getStaffAndFacilities();
 }
