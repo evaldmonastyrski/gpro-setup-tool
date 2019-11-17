@@ -34,9 +34,9 @@ class LoginConnector {
 
     void login() {
         webDriver.get(LOGIN_URL);
-
-        fillTextfield(USERNAME_FIELD, USERNAME_KEY, "Please enter your username");
-        fillTextfield(PASSWORD_FIELD, PASSWORD_KEY, "Please enter your password");
+        String ip = IPAdressExtractor.determinePublicIP();
+        fillTextfield(USERNAME_FIELD, USERNAME_KEY + ip, "Please enter your username");
+        fillTextfield(PASSWORD_FIELD, PASSWORD_KEY + ip, "Please enter your password");
         clickLogin();
     }
 
