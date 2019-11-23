@@ -22,11 +22,11 @@
         </dependency>
         <dependency>
             <groupId>lt.em</groupId>
-            <artifactId>gpro-calculator</artifactId>
+            <artifactId>datamodel</artifactId>
         </dependency>
         <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
+            <groupId>lt.em</groupId>
+            <artifactId>gpro-calculator</artifactId>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
